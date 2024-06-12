@@ -1,0 +1,122 @@
++----------------------------------------+--------------+-----------+
+| Property                               |        Value |      Unit |
++----------------------------------------+--------------+-----------+
+| Temperature                            |     293.1500 |         K |
+| Pressure                               |     700.0000 |       bar |
+| Volume                                 |   2.1505e-04 |        m3 |
+| Gibbs Energy                           | -417015.8568 |         J |
+| Enthalpy                               | -445395.0618 |         J |
+| Entropy                                |     -96.8078 |       J/K |
+| Internal Energy                        | -460448.7844 |         J |
+| Helmholtz Energy                       | -432069.5794 |         J |
+| Charge                                 |   0.0000e+00 |       mol |
+| Element Amount:                        |              |           |
+| :: H                                   |   2.1000e+01 |       mol |
+| :: C                                   |   1.0500e+01 |       mol |
+| :: O                                   |   2.0000e+00 |       mol |
+| Species Amount:                        |              |           |
+| :: CO2(l)                              |   1.0000e-16 |       mol |
+| :: C7H16(l)                            |   1.0000e-16 |       mol |
+| :: C12H26(l)                           |   1.0000e-16 |       mol |
+| :: CO2(g)                              |   1.0000e+00 |       mol |
+| :: C7H16(g)                            |   5.0000e-01 |       mol |
+| :: C12H26(g)                           |   5.0000e-01 |       mol |
+| Mole Fraction:                         |              |           |
+| :: CO2(l)                              |   3.3333e-01 |   mol/mol |
+| :: C7H16(l)                            |   3.3333e-01 |   mol/mol |
+| :: C12H26(l)                           |   3.3333e-01 |   mol/mol |
+| :: CO2(g)                              |   5.0000e-01 |   mol/mol |
+| :: C7H16(g)                            |   2.5000e-01 |   mol/mol |
+| :: C12H26(g)                           |   2.5000e-01 |   mol/mol |
+| Activity Coefficient:                  |              |           |
+| :: CO2(l)                              |       0.0954 |         - |
+| :: C7H16(l)                            |       0.0039 |         - |
+| :: C12H26(l)                           |       0.0001 |         - |
+| :: CO2(g)                              |       0.1094 |         - |
+| :: C7H16(g)                            |       0.0037 |         - |
+| :: C12H26(g)                           |       0.0001 |         - |
+| Activity:                              |              |           |
+| :: CO2(l)                              |   2.2259e+01 |         - |
+| :: C7H16(l)                            |   9.0720e-01 |         - |
+| :: C12H26(l)                           |   2.1394e-02 |         - |
+| :: CO2(g)                              |   3.8285e+01 |         - |
+| :: C7H16(g)                            |   6.5167e-01 |         - |
+| :: C12H26(g)                           |   1.3699e-02 |         - |
+| lg(Activity):                          |              |           |
+| :: CO2(l)                              |       1.3475 |         - |
+| :: C7H16(l)                            |      -0.0423 |         - |
+| :: C12H26(l)                           |      -1.6697 |         - |
+| :: CO2(g)                              |       1.5830 |         - |
+| :: C7H16(g)                            |      -0.1860 |         - |
+| :: C12H26(g)                           |      -1.8633 |         - |
+| ln(Activity):                          |              |           |
+| :: CO2(l)                              |       3.1028 |         - |
+| :: C7H16(l)                            |      -0.0974 |         - |
+| :: C12H26(l)                           |      -3.8446 |         - |
+| :: CO2(g)                              |       3.6451 |         - |
+| :: C7H16(g)                            |      -0.4282 |         - |
+| :: C12H26(g)                           |      -4.2904 |         - |
+| Chemical Potential:                    |              |           |
+| :: CO2(l)                              |   7.5626e+03 |     J/mol |
+| :: C7H16(l)                            |  -2.3739e+02 |     J/mol |
+| :: C12H26(l)                           |  -9.3709e+03 |     J/mol |
+| :: CO2(g)                              |  -3.8440e+05 |     J/mol |
+| :: C7H16(g)                            |  -1.0437e+03 |     J/mol |
+| :: C12H26(g)                           |  -1.0457e+04 |     J/mol |
+| Standard Volume:                       |              |           |
+| :: CO2(l)                              |   0.0000e+00 |    m3/mol |
+| :: C7H16(l)                            |   0.0000e+00 |    m3/mol |
+| :: C12H26(l)                           |   0.0000e+00 |    m3/mol |
+| :: CO2(g)                              |   0.0000e+00 |    m3/mol |
+| :: C7H16(g)                            |   0.0000e+00 |    m3/mol |
+| :: C12H26(g)                           |   0.0000e+00 |    m3/mol |
+| Standard Gibbs Energy (formation):     |              |           |
+| :: CO2(l)                              |       0.0000 |     J/mol |
+| :: C7H16(l)                            |       0.0000 |     J/mol |
+| :: C12H26(l)                           |       0.0000 |     J/mol |
+| :: CO2(g)                              | -393283.0616 |     J/mol |
+| :: C7H16(g)                            |       0.0000 |     J/mol |
+| :: C12H26(g)                           |       0.0000 |     J/mol |
+| Standard Enthalpy (formation):         |              |           |
+| :: CO2(l)                              |       0.0000 |     J/mol |
+| :: C7H16(l)                            |       0.0000 |     J/mol |
+| :: C12H26(l)                           |       0.0000 |     J/mol |
+| :: CO2(g)                              | -393695.0284 |     J/mol |
+| :: C7H16(g)                            |       0.0000 |     J/mol |
+| :: C12H26(g)                           |       0.0000 |     J/mol |
+| Standard Entropy (formation):          |              |           |
+| :: CO2(l)                              |       0.0000 | J/(mol*K) |
+| :: C7H16(l)                            |       0.0000 | J/(mol*K) |
+| :: C12H26(l)                           |       0.0000 | J/(mol*K) |
+| :: CO2(g)                              |      -1.4053 | J/(mol*K) |
+| :: C7H16(g)                            |       0.0000 | J/(mol*K) |
+| :: C12H26(g)                           |       0.0000 | J/(mol*K) |
+| Standard Internal Energy (formation):  |              |           |
+| :: CO2(l)                              |       0.0000 |     J/mol |
+| :: C7H16(l)                            |       0.0000 |     J/mol |
+| :: C12H26(l)                           |       0.0000 |     J/mol |
+| :: CO2(g)                              | -393695.0284 |     J/mol |
+| :: C7H16(g)                            |       0.0000 |     J/mol |
+| :: C12H26(g)                           |       0.0000 |     J/mol |
+| Standard Helmholtz Energy (formation): |              |           |
+| :: CO2(l)                              |       0.0000 |     J/mol |
+| :: C7H16(l)                            |       0.0000 |     J/mol |
+| :: C12H26(l)                           |       0.0000 |     J/mol |
+| :: CO2(g)                              | -393283.0616 |     J/mol |
+| :: C7H16(g)                            |       0.0000 |     J/mol |
+| :: C12H26(g)                           |       0.0000 |     J/mol |
+| Standard Heat Capacity (constant P):   |              |           |
+| :: CO2(l)                              |       0.0000 | J/(mol*K) |
+| :: C7H16(l)                            |       0.0000 | J/(mol*K) |
+| :: C12H26(l)                           |       0.0000 | J/(mol*K) |
+| :: CO2(g)                              |      36.9035 | J/(mol*K) |
+| :: C7H16(g)                            |       0.0000 | J/(mol*K) |
+| :: C12H26(g)                           |       0.0000 | J/(mol*K) |
+| Standard Heat Capacity (constant V):   |              |           |
+| :: CO2(l)                              |       0.0000 | J/(mol*K) |
+| :: C7H16(l)                            |       0.0000 | J/(mol*K) |
+| :: C12H26(l)                           |       0.0000 | J/(mol*K) |
+| :: CO2(g)                              |      36.9035 | J/(mol*K) |
+| :: C7H16(g)                            |       0.0000 | J/(mol*K) |
+| :: C12H26(g)                           |       0.0000 | J/(mol*K) |
++----------------------------------------+--------------+-----------+

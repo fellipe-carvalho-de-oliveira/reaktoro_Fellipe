@@ -1,0 +1,65 @@
+// Reaktoro is a unified framework for modeling chemically reactive systems.
+//
+// Copyright © 2014-2024 Allan Leal
+//
+// This library is free software; you can redistribute it and/or
+// modify it under the terms of the GNU Lesser General Public
+// License as published by the Free Software Foundation; either
+// version 2.1 of the License, or (at your option) any later version.
+//
+// This library is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+// Lesser General Public License for more details.
+//
+// You should have received a copy of the GNU Lesser General Public License
+// along with this library. If not, see <http://www.gnu.org/licenses/>.
+
+#include "ActivityModelDrummond.hpp"
+
+// Reaktoro includes
+#include <Reaktoro/Models/ActivityModels/Support/AqueousMixture.hpp>
+
+namespace Reaktoro {
+
+using std::log;
+
+auto ActivityModelDrummond(String gas) -> ActivityModelGenerator
+{
+    return ActivityModelDrummond(gas, {});
+}
+
+auto ActivityModelDrummond(String gas, ActivityModelDrummondParams params) -> ActivityModelGenerator
+{
+    ActivityModelGenerator model = [=](const SpeciesList& species)
+    {
+        // The index of the dissolved gas in the aqueous phase.
+        const auto igas = species.indexWithFormula(gas);
+
+        ActivityModel fn = [=](ActivityPropsRef props, ActivityModelArgs args)
+        {
+            // Check AqueousMixtureState is available in props.extra
+            auto stateit = props.extra.find("AqueousMixtureState");
+
+            errorif(stateit == props.extra.end(),
+                "ActivityModelDuanSun expects that another aqueous activity model has been chained first (e.g., Davies, Debye-Huckel, HKF, PitzerHMW, etc.) ");
+
+            // The aqueous mixture state exported by a base aqueous activity model.
+            const auto& state = *std::any_cast<SharedPtr<AqueousMixtureState> const&>(stateit->second);
+
+            const auto& [a1, a2, a3, a4, a5] = params;
+            const auto& T = state.T;
+            const auto& I = state.Is;
+            const auto c1 = a1 + a2*T + a3/T;
+            const auto c2 = a4 + a5*T;
+            props.ln_g[igas] = c1 * I - c2 * I/(I + 1);
+            props.ln_a[igas] = props.ln_g[igas] + log(state.m[igas]);
+        };
+
+        return fn;
+    };
+
+    return model;
+}
+
+} // namespace Reaktoro

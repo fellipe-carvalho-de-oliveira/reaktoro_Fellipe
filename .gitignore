@@ -1,0 +1,46 @@
+# Build files and directories
+build*/
+_build*/
+.build*/
+compile_commands.json
+
+# Files and directories with suffix -ignore
+*-ignore
+*IGNORE*
+
+# Eclipse IDE files
+.settings
+.project
+.cproject
+.pydevproject
+.ptp-sync-folder
+.ptp-sync/
+
+# Visual Studio Code related files
+.env
+.history
+.vscode
+.cache
+
+# JetBrains related files
+.idea
+
+# Python related files
+*.pyc
+.pytest_cache
+
+# Conda related files
+/artifacts*/
+/environment.yml
+/compile_environment*.yml
+
+# LyX backup and temporary files
+*.lyx#
+*.lyx~
+
+# Other files/directories
+*DO-NOT-COMMIT*
+.DS_Store
+.directory
+~lock.*
+*.log.txt

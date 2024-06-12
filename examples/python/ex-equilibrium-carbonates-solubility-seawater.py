@@ -1,0 +1,115 @@
+# Reaktoro is a unified framework for modeling chemically reactive systems.
+#
+# Copyright © 2014-2024 Allan Leal
+#
+# This library is free software; you can redistribute it and/or
+# modify it under the terms of the GNU Lesser General Public
+# License as published by the Free Software Foundation; either
+# version 2.1 of the License, or (at your option) any later version.
+#
+# This library is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+# Lesser General Public License for more details.
+#
+# You should have received a copy of the GNU Lesser General Public License
+# along with this library. If not, see <http://www.gnu.org/licenses/>.
+
+# -----------------------------------------------------------------------------
+# 👏 Acknowledgements 👏
+# -----------------------------------------------------------------------------
+# This example was originally authored by:
+#   • Svetlana Kyas (14 July 2021)
+# -----------------------------------------------------------------------------
+
+
+from reaktoro import *
+import numpy as np
+
+# Function to calculate equilibrium of the carbonates and seawater
+def carbonates_in_seawater(system, solver, T, P):
+
+    # Initial values of the carbonates and mass of water
+    n0Calcite = 10.0
+    n0Dolomite = 10.0
+    water_kg = 1.0
+
+    # Define initial equilibrium state corresponding to the seawater
+    state_sw = ChemicalState(system)
+    state_sw.temperature(T, "celsius")
+    state_sw.pressure(P, "atm")
+    state_sw.set("H2O", 1.0, "kg")
+    state_sw.set("Ca+2", 412.3 * water_kg, "mg")
+    state_sw.set("Mg+2", 1290 * water_kg, "mg")
+    state_sw.set("Na+", 10768.0 * water_kg, "mg")
+    state_sw.set("K+", 399.1 * water_kg, "mg")
+    state_sw.set("Cl-", 19353.0 * water_kg, "mg")
+    state_sw.set("HCO3-", 141.682 * water_kg, "mg")
+    state_sw.set("SO4-2", 2712.0 * water_kg, "mg")
+
+    # Calculate chemical state corresponding to the seawater
+    res = solver.solve(state_sw)
+
+    # Throw exception if the equilibrium couldn't be found
+    assert res.succeeded(), "The equilibrium calculation did not succeed!"
+
+    # Add carbonates
+    state_sw.set("Dolomite", n0Dolomite, "mol")
+    state_sw.set("Calcite", n0Calcite, "mol")
+
+    # Equilibrate the seawater with carbonates
+    solver.solve(state_sw)
+
+    # Fetch values of the specified species
+    nDolomite = float(state_sw.speciesAmount("Dolomite"))
+    nCalcite  = float(state_sw.speciesAmount("Calcite"))
+    nCa2      = float(state_sw.speciesAmount("Ca+2"))
+    nMg2      = float(state_sw.speciesAmount("Mg+2"))
+    nH        = float(state_sw.speciesAmount("H+"))
+    nHCO3     = float(state_sw.speciesAmount("HCO3-"))
+
+    return (nCalcite, nDolomite, nCa2, nMg2, nH, nHCO3)
+
+# Initialize a thermodynamic database
+db = PhreeqcDatabase("pitzer.dat")
+
+# Create an aqueous phase automatically selecting all species with provided elements
+aqueousphase = AqueousPhase(speciate("H O C Ca Cl Na K Mg S Si"))
+aqueousphase.set(ActivityModelPitzer())
+
+# Create carbonates phases
+calcitephase = MineralPhase("Calcite")
+dolomitephase = MineralPhase("Dolomite")
+
+# Collecting all above-defined phases
+phases = Phases(db)
+phases.add(aqueousphase)
+phases.add(calcitephase)
+phases.add(dolomitephase)
+
+# Construct the chemical system
+system = ChemicalSystem(phases)
+
+# Create the equilibrium solver
+solver = EquilibriumSolver(system)
+
+# Define the range of temperatures and pressure for the equilibrium calculations
+T = np.arange(25.0, 91.0, 5.0)
+P = 1.0
+
+# Fetch specific species amounts
+species_amounts = [carbonates_in_seawater(system, solver, x, P) for x in T]  # [0] is needed to get the value of autodiff.real
+mCalcite  = [molals[0] for molals in species_amounts]
+mDolomite = [molals[1] for molals in species_amounts]
+mCa2      = [molals[2] for molals in species_amounts]
+mMg2      = [molals[3] for molals in species_amounts]
+mH        = [molals[4] for molals in species_amounts]
+mHCO3     = [molals[5] for molals in species_amounts]
+
+# Output species amount after equilibration for a range of the
+print(" --------------------------------------------------------------------------------")
+print("  Final species amounts w.r.t. temperatures")
+print(" --------------------------------------------------------------------------------")
+print("   T     Calcite   Dolomite         Ca++         Mg++           H+        HCO3-")
+for i in range(len(T)):
+    print(f"{T[i]:4.0f}  {mCalcite[i]:10.4f} {mDolomite[i]:10.4f} {mCa2[i]:12.4e} {mMg2[i]:12.4e} {mH[i]:12.4e} {mHCO3[i]:12.4e}")

@@ -1,0 +1,93 @@
+#!/usr/bin/env python3
+
+# Reaktoro is a unified framework for modeling chemically reactive systems.
+#
+# Copyright © 2014-2024 Allan Leal
+#
+# This library is free software; you can redistribute it and/or
+# modify it under the terms of the GNU Lesser General Public
+# License as published by the Free Software Foundation; either
+# version 2.1 of the License, or (at your option) any later version.
+#
+# This library is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+# Lesser General Public License for more details.
+#
+# You should have received a copy of the GNU Lesser General Public License
+# along with this library. If not, see <http://www.gnu.org/licenses/>.
+
+# Execute:
+#
+#   generate-nasa-databases -i cea.dat -ojson cea.json -oyaml cea.yaml
+#
+# to parse the database file cea.dat and generate files cea.json and cea.yaml.
+
+import sys
+import argparse
+import json
+import oyaml as yaml
+
+from parse_nasa_database import *
+
+
+if __name__ == "__main__":
+    # Create a command-line argument parser
+    parser = argparse.ArgumentParser(prog="ReaktoroParserNASA")
+
+    # Add the input argument
+    parser.add_argument("-i", "--input", type=str, \
+        help="the path to the original NASA database file",
+        required=True)
+
+    # Add the output argument for json
+    parser.add_argument("-ojson", "--outputjson", type=str, \
+        help="the path where the json file should be the output",
+        required=True)
+
+    # Add the output argument for yaml
+    parser.add_argument("-oyaml", "--outputyaml", type=str, \
+        help="the path where the yaml file should be the output",
+        required=True)
+
+    # Add the debug option (optional)
+    # parser.add_argument("-e", "--exclude", type=str, nargs="?", \
+    #     help="the relative path to a file containing the names of species \
+    #         to be excluded from the final database")
+
+    # Parse the command-line arguments (remove the first argument, which is the name of this file
+    args = parser.parse_args(sys.argv[1:])
+
+    with open(args.input) as file:
+        textlines = createTextLines(file)
+
+
+    print("Parsing database...")
+    specieslist = createNasaSpeciesList(textlines)
+
+    db = createDatabase(specieslist)
+
+    # Perform a json dump
+    print("Creating json output...")
+    jdump = json.dumps(db, sort_keys=False, indent=2, separators=(',', ': '))
+
+    # Perform a yaml dump
+    print("Creating yaml output...")
+    ydump = yaml.dump(db)
+
+    # Clean both json and yaml dumps from, for example, @ surrounding dictionaries (e.g., &{...}&)
+    jdump = jdump.replace("\"&{", "{ ").replace("}&\"", " }")
+    ydump = ydump.replace("&{", "{ ").replace("}&", " }")
+
+    # Output the database in json format
+    with open(args.outputjson, 'w') as f:
+        print(f"Creating ouptut file {args.outputjson} ...")
+        f.write(jdump)
+
+    # Output the database in yaml format
+    with open(args.outputyaml, 'w') as f:
+        print(f"Creating ouptut file {args.outputyaml} ...")
+        f.write(ydump)
+
+    print(f"Files {args.outputjson} and {args.outputyaml} have been successfully written!")
+

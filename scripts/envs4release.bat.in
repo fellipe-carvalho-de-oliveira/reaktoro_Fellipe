@@ -1,0 +1,11 @@
+@REM This file will be copied by cmake to the root of the build directory.
+@REM Execute `envs4debug` from that directory and the environment variables
+@REM below will be update so that the python package and C++ libraries can
+@REM be found if necessary (e.g., to execute pytest).
+
+if not defined REAKTORO_BACKUP_PYTHONPATH set REAKTORO_BACKUP_PYTHONPATH=%PYTHONPATH%
+if not defined REAKTORO_BACKUP_PATH set REAKTORO_BACKUP_PATH=%PATH%
+
+@REM Some path repetitions below (without Debug/Release in the path) happens in case ninja is used instead of MSVC.
+set PYTHONPATH=${PROJECT_BINARY_DIR_NATIVE}\python\package\build\lib;%REAKTORO_BACKUP_PYTHONPATH%
+set PATH=${PROJECT_BINARY_DIR_NATIVE}\Reaktoro\Release;${PROJECT_BINARY_DIR_NATIVE}\Reaktoro;%REAKTORO_BACKUP_PATH%

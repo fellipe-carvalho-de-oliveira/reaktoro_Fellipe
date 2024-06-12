@@ -1,0 +1,56 @@
+// Reaktoro is a unified framework for modeling chemically reactive systems.
+//
+// Copyright © 2014-2024 Allan Leal
+//
+// This library is free software; you can redistribute it and/or
+// modify it under the terms of the GNU Lesser General Public
+// License as published by the Free Software Foundation; either
+// version 2.1 of the License, or (at your option) any later version.
+//
+// This library is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+// Lesser General Public License for more details.
+//
+// You should have received a copy of the GNU Lesser General Public License
+// along with this library. If not, see <http://www.gnu.org/licenses/>.
+
+// pybind11 includes
+#include <Reaktoro/pybind11.hxx>
+
+// Reaktoro includes
+#include <Reaktoro/Core/ElementList.hpp>
+using namespace Reaktoro;
+
+void exportElementList(py::module& m)
+{
+    py::class_<ElementList>(m, "ElementList")
+        .def(py::init<>())
+        .def(py::init<const Vec<Element>&>())
+        .def("append", &ElementList::append)
+        .def("data", &ElementList::data)
+        .def("empty", &ElementList::empty)
+        .def("size", &ElementList::size)
+        .def("find", &ElementList::find)
+        .def("findWithSymbol", &ElementList::findWithSymbol)
+        .def("findWithName", &ElementList::findWithName)
+        .def("index", &ElementList::index)
+        .def("indexWithSymbol", &ElementList::indexWithSymbol)
+        .def("indexWithName", &ElementList::indexWithName)
+        .def("get", &ElementList::get, return_internal_ref)
+        .def("getWithSymbol", &ElementList::getWithSymbol, return_internal_ref)
+        .def("getWithName", &ElementList::getWithName, return_internal_ref)
+        .def("withSymbols", &ElementList::withSymbols)
+        .def("withNames", &ElementList::withNames)
+        .def("withTag", &ElementList::withTag)
+        .def("withoutTag", &ElementList::withoutTag)
+        .def("withTags", &ElementList::withTags)
+        .def("withoutTags", &ElementList::withoutTags)
+        .def("__len__", &ElementList::size)
+        .def("__getitem__", [](const ElementList& self, Index i) { return self[i]; }, return_internal_ref)
+        .def("__iter__", [](const ElementList& self) { return py::make_iterator(self.begin(), self.end()); }, py::keep_alive<0, 1>()) // keep object alive while iterator exists;
+        .def(py::self + py::self);
+        ;
+
+    py::implicitly_convertible<Vec<Element>, ElementList>();
+}

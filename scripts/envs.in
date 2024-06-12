@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+# This file will be copied by cmake to the root of the build directory.
+# Execute `source envs` from that directory and the environment variables
+# below will be update so that the python package and C++ libraries can
+# be found if necessary (e.g., to execute pytest).
+
+source_dir=${PROJECT_SOURCE_DIR}
+binary_dir=${PROJECT_BINARY_DIR}
+
+py_reaktoro_dir=$binary_dir/python/package/build/lib  # the path to python package reaktoro
+lib_reaktoro_dir=$binary_dir/lib  # the path to Reaktoro's libraries
+
+if [ -z ${REAKTORO_BACKUP_PYTHONPATH} ]; then export REAKTORO_BACKUP_PYTHONPATH=$PYTHONPATH; fi
+if [ -z ${REAKTORO_BACKUP_LD_LIBRARY_PATH} ]; then export REAKTORO_BACKUP_LD_LIBRARY_PATH=$LD_LIBRARY_PATH; fi
+
+export PYTHONPATH=$py_reaktoro_dir:$REAKTORO_BACKUP_PYTHONPATH
+export LD_LIBRARY_PATH=$lib_reaktoro_dir:$REAKTORO_BACKUP_LD_LIBRARY_PATH
+
+echo "The following environment variables have been updated:"
+echo "  PYTHONPATH = $PYTHONPATH"
+echo "  LD_LIBRARY_PATH = $LD_LIBRARY_PATH"

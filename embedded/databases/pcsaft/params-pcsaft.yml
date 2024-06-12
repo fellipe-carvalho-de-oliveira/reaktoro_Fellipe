@@ -1,0 +1,63 @@
+Params:
+  PCSAFT:
+  - Name: Methanol
+    PCSAFT_Type: A_PCSAFT
+      m: 1.5255 
+      sigma: 3.2300
+      epsilon: 188.90
+      kappa: 0.035176
+      eassoc: 2899.5
+      n_donor_sites: 1
+      n_acceptor_sites: 1
+  - Name: Ethane	
+    PCSAFT_Type: PCSAFT 
+      m: 1.6069	
+      sigma: 3.5206	
+      epsilon: 191.42	      
+  - Name: Ethanol
+    PCSAFT_Type: A_PCSAFT
+      m: 2.3827	
+      sigma: 3.1771	
+      epsilon: 198.24	
+      kappa: 0.032384	
+      eassoc: 2653.4	
+      n_donor_sites: 1
+      n_acceptor_sites: 1
+  - Name: 1-Octanol
+    PCSAFT_Type: A_PCSAFT  
+      m: 4.3555	
+      sigma: 3.7145	
+      epsilon: 262.74		
+      kappa: 0.002197	
+      eassoc: 2754.8
+      n_donor_sites: 1
+      n_acceptor_sites: 1      
+  - Name: Water2B	
+    PCSAFT_Type: A_PCSAFT 
+      m: 1.0656	
+      sigma: 3.0007	
+      epsilon: 366.51		
+      kappa: 0.034868		
+      eassoc: 2500.7
+      n_donor_sites: 1
+      n_acceptor_sites: 1 
+  - Name: Isobutane	
+    PCSAFT_Type: PCSAFT 
+      m: 2.2616	
+      sigma: 3.7574	
+      epsilon: 216.53	
+  - Name: C7H16	
+    PCSAFT_Type: PCSAFT 
+      m: 3.4831	
+      sigma: 3.8049	
+      epsilon: 238.40 	      		         
+  - Name: C12H26	
+    PCSAFT_Type: PCSAFT 
+      m: 5.3060	
+      sigma: 3.8959 	
+      epsilon: 249.21   
+  - Name: CO2	
+    PCSAFT_Type: PCSAFT 
+      m: 2.0729	
+      sigma: 2.7852 	
+      epsilon: 169.21  

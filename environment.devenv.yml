@@ -1,0 +1,50 @@
+name: reaktoro
+
+{% set python_version = os.environ.get("PYTHON_VERSION", "3.11") %}
+
+channels:
+  - conda-forge
+
+dependencies:
+  - autodiff >=1.1.1
+  - catch2 =2
+  - ccache
+  - clangxx  # [linux]
+  - clangxx_osx-64  # [osx and not arm64]
+  - clangxx_osx-arm64  # [osx and arm64]
+  - cmake
+  - cpp-tabulate
+  - doxygen =1.9.1  # [linux]
+  - eigen
+  - fire
+  - git
+  - graphviz  # [linux]
+  - gxx_linux-64  # [linux]
+  - ipykernel                              # needed if using Jupyter Notebooks in Visual Studio Code
+  - lld  # [linux]
+  - make  # [unix]
+  - matplotlib-base
+  - nbformat                               # needed if using plotly in Jupyter Notebooks in Visual Studio Code
+  - ninja
+  - nlohmann_json
+  - numpy
+  - openlibm
+  - optima =0.5.0
+  - pandas
+  - phreeqc4rkt
+  - pip
+  - pybind11 >=2.10.0
+  - pybind11-abi
+  - pybind11-stubgen =2.0.2
+  - pytest
+  - pytest-regressions
+  - pytest-xdist
+  - python ={{ python_version }}
+  - reaktplot >=0.4.1
+  - thermofun =0.4.5
+  - tsl_ordered_map
+  - valgrind  # [linux]
+  - vs2019_win-64  # [win]
+  - yaml-cpp =0.7.0
+  - pip:
+    - oyaml
